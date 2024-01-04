@@ -1,7 +1,13 @@
-<script setup></script>
+<script setup>
+definePageMeta({
+  layout: false, // 只有取消 default layout
+});
+</script>
 
 <template>
-  <div>EPS Page: about</div>
+  <NuxtLayout name="custom">
+    <div>EPS Page: about</div>
+  </NuxtLayout>
 </template>
 
 <style scoped></style>

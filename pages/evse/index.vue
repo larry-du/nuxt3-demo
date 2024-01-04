@@ -1,3 +1,10 @@
+<script setup>
+const globalStore = useGlobalStore();
+const routerName = ref("");
+
+console.log("hi", globalStore.getTest);
+</script>
+
 <template>
   <div>
     <NuxtLink to="/home">Router Nest Home</NuxtLink>-
@@ -23,9 +30,5 @@
     <NuxtPage :key="$route.path" />
   </div>
 </template>
-
-<script setup>
-const routerName = ref("");
-</script>
 
 <style lang="scss" scoped></style>

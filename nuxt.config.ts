@@ -14,7 +14,8 @@ export default defineNuxtConfig({
   dir: {
     pages: `pages/${process.env.WEBSITE_ID}`,
   },
-  modules: ["@pinia/nuxt"],
+  plugins: ["~/plugins/draggable.js"],
+  modules: ["@pinia/nuxt", "@element-plus/nuxt"],
   pinia: {
     storesDirs: ["./stores/**"],
   },

@@ -17,8 +17,10 @@ export default defineNuxtPlugin((nuxtApp) => {
           target.setAttribute("disabled", true);
         },
         onEnd: (evt) => {
-          console.log(vnode.ctx);
-          const dragData = deepClone(vnode.ctx.proxy[argumentData.sortData]);
+          // console.log(vnode.ctx.parent.props[argumentData.sortData]);
+          const dragData = deepClone(
+            vnode.ctx.parent.props[argumentData.sortData],
+          );
           const [targetItem] = dragData.splice(evt.oldIndex, 1);
           dragData.splice(evt.newIndex, 0, targetItem);
           argumentData.saveData(dragData);

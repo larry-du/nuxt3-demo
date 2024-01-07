@@ -14,10 +14,6 @@ const dymanicComponent = ref("BaseInput");
 const formTypeItems = ref([{ label: "BaseTitle", value: "BaseTitle" }]);
 
 const formTypeCheckList = ref([]);
-
-const test = (data) => {
-  console.log(data);
-};
 </script>
 
 <template>
@@ -33,11 +29,12 @@ const test = (data) => {
         :form-field="epsGlobalStore.getEpsForm"
         @update:model-value="
           epsGlobalStore.epsForm = [
-            ...epsGlobalStore.getEpsForm.slice(0, $event.currentIndex),
+            ...epsGlobalStore.epsForm.slice(0, $event.currentIndex),
             { ...$event.current },
-            ...epsGlobalStore.getEpsForm.slice($event.currentIndex + 1),
+            ...epsGlobalStore.epsForm.slice($event.currentIndex + 1),
           ]
         "
+        @update:form-field="epsGlobalStore.epsForm = $event"
       ></FormGenerator>
       <!-- <div class="test">
         <ElForm

@@ -1,5 +1,5 @@
 <script setup>
-const emits = defineEmits(["update:modelValue"]);
+const emits = defineEmits(["update:modelValue", "update:formField"]);
 
 const props = defineProps({
   formField: {
@@ -11,6 +11,9 @@ const props = defineProps({
     default: () => [],
   },
 });
+
+const BaseTitle = resolveComponent("BaseTitle");
+const formView = markRaw({ BaseTitle });
 </script>
 <template>
   <div class="test">
@@ -18,9 +21,9 @@ const props = defineProps({
       v-draggable="{
         animation: 400,
         saveData: (data) => {
-          test(data);
+          $emit('update:formField', data);
         },
-        sortData: 'productFocus',
+        sortData: 'formField',
         dragElement: '.focusDrag__content',
         disableElement: '',
       }"
@@ -33,14 +36,14 @@ const props = defineProps({
           :model-value="formType.field"
           @update:model-value="
             $emit('update:modelValue', {
-              current: { ...formType, field: $event },
+              current: { ...formType, ...$event },
               currentIndex: index,
             })
           "
         ></Component>
       </div>
     </ElForm>
-    <div class="show-data">{{ epsGlobalStore.getEpsForm }}</div>
+    <div class="show-data">{{ formField }}</div>
   </div>
 </template>
 

@@ -14,6 +14,30 @@ const dymanicComponent = ref("BaseInput");
 const formTypeItems = ref([{ label: "BaseTitle", value: "BaseTitle" }]);
 
 const formTypeCheckList = ref([]);
+
+const metaTest = `
+query getMeta {
+    MyQuery {
+      evseNews(id: 10) {
+        id
+        title
+      }
+      evseNewsList(page: 10, pageSize: 10) {
+        id
+        title
+      }
+    }
+  }`;
+const { data } = await useFetch("https://msvc.msi.com/graphq", {
+  headers: {
+    Accept: "application/json",
+    Authorization: "da2-3d2ezly5xngofpbmuz6wqvjzf4",
+  },
+  // method: "post",
+  body: metaTest,
+});
+
+console.log(data);
 </script>
 
 <template>

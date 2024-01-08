@@ -1,9 +1,6 @@
 import Sortable from "sortablejs";
 import { defineNuxtPlugin } from "#app";
-
-function deepClone(cloneData) {
-  return JSON.parse(JSON.stringify(cloneData));
-}
+import { deepClone } from "@/utils/";
 
 export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.vueApp.directive("draggable", {
@@ -17,7 +14,6 @@ export default defineNuxtPlugin((nuxtApp) => {
           target.setAttribute("disabled", true);
         },
         onEnd: (evt) => {
-          // console.log(vnode.ctx.parent.props[argumentData.sortData]);
           const dragData = deepClone(
             vnode.ctx.parent.props[argumentData.sortData],
           );

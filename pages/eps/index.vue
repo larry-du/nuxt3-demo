@@ -33,7 +33,7 @@ const { data } = await useFetch("https://msvc.msi.com/graphq", {
     Accept: "application/json",
     Authorization: "da2-3d2ezly5xngofpbmuz6wqvjzf4",
   },
-  // method: "post",
+  method: "POST",
   body: metaTest,
 });
 

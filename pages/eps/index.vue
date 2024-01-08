@@ -28,16 +28,48 @@ query getMeta {
       }
     }
   }`;
-const { data } = await useFetch("https://msvc.msi.com/graphq", {
-  headers: {
-    Accept: "application/json",
-    Authorization: "da2-3d2ezly5xngofpbmuz6wqvjzf4",
-  },
-  method: "POST",
-  body: metaTest,
+// const { data } = await useFetch("https://msvc.msi.com/graphq", {
+//   headers: {
+//     Accept: "application/json",
+//     Authorization: "da2-3d2ezly5xngofpbmuz6wqvjzf4",
+//   },
+//   method: "POST",
+//   body: metaTest,
+// });
+// const { data } = await useFetch(
+//   "https://dev-api.mangi.tw:443/api/v1.0/comics/users/signup/native",
+//   {
+//     // headers: {
+//     //   Accept: "application/json",
+//     //   Authorization: "da2-3d2ezly5xngofpbmuz6wqvjzf4",
+//     // },
+//     method: "POST",
+//     body: {
+//       email: "wendy_test",
+//       password: "wendy_test",
+//       username: "wendy_test",
+//     },
+//   },
+// );
+
+useAsyncData(async () => {
+  try {
+    console.log("useAsyncData");
+    const { data } = await $fetch("https://msvc.msi.com/graphq", {
+      headers: {
+        Accept: "application/json",
+        Authorization: "da2-3d2ezly5xngofpbmuz6wqvjzf4",
+      },
+      method: "POST",
+      body: metaTest,
+    });
+    console.log("end", data);
+  } catch (e) {
+    console.log("error", e);
+  }
 });
 
-console.log(data);
+// console.log(data);
 </script>
 
 <template>

@@ -13,7 +13,9 @@ const props = defineProps({
 });
 
 const BaseTitle = resolveComponent("BaseTitle");
-const formView = markRaw({ BaseTitle });
+const BaseMarkDownEditor = resolveComponent("BaseMarkDownEditor");
+
+const formView = markRaw({ BaseTitle, BaseMarkDownEditor });
 </script>
 <template>
   <div class="test">
@@ -29,18 +31,18 @@ const formView = markRaw({ BaseTitle });
       }"
     >
       <div class="focusDrag__content">
-        <Component
-          :is="formView[formType.type]"
-          v-for="(formType, index) in formField"
-          :key="formType.id"
-          :model-value="formType.field"
-          @update:model-value="
-            $emit('update:modelValue', {
-              current: { ...formType, ...$event },
-              currentIndex: index,
-            })
-          "
-        ></Component>
+        <div v-for="(formType, index) in formField" :key="formType.id">
+          <Component
+            :is="formView[formType.type]"
+            :model-value="formType.field"
+            @update:model-value="
+              $emit('update:modelValue', {
+                current: { ...formType, ...$event },
+                currentIndex: index,
+              })
+            "
+          ></Component>
+        </div>
       </div>
     </ElForm>
     <div class="show-data">{{ formField }}</div>

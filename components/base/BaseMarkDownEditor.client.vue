@@ -3,18 +3,23 @@ import "@toast-ui/editor/dist/toastui-editor.css";
 import "@toast-ui/editor/dist/toastui-editor-viewer.css";
 import Editor from "@toast-ui/editor";
 import Viewer from "@toast-ui/editor/dist/toastui-editor-viewer";
+
+defineOptions({
+  inheritAttrs: false,
+});
+
 const prop = defineProps({
-  featureContext: {
+  modelValue: {
     type: String,
     default: "",
   },
   title: {
     type: String,
-    default: "",
+    default: "Table component",
   },
   el: {
     type: String,
-    default: "test",
+    default: "editorTest",
   },
   viewerEl: {
     type: String,
@@ -30,72 +35,66 @@ const prop = defineProps({
   },
 });
 
-const {
-  featureContext,
-  viewerEl,
-  title,
-  el,
-  unTranslateContent,
-  showTranslate,
-} = toRefs(prop);
+const { modelValue, viewerEl, title, el, unTranslateContent, showTranslate } =
+  toRefs(prop);
 
-const emit = defineEmits(["update:content"]);
+const emit = defineEmits(["update:modelValue"]);
 
-let editor = {};
-let viewer = {};
+const editor = ref({});
+// const viewer = ref({});
 onMounted(() => {
   nextTick(() => {
-    editor = new Editor({
+    editor.value = new Editor({
       el: document.querySelector(`.${el.value}`),
-      height: "350px",
-      initialEditType: "wysiwyg",
+      height: "200px",
+      initialEditType: "markdown",
       previewStyle: "vertical",
-      initialValue: featureContext.value,
+      initialValue: modelValue.value,
       useCommandShortcut: true,
       usageStatistics: false,
-      hideModeSwitch: true,
+      // hideModeSwitch: true,
       autofocus: false,
-      toolbarItems: [
-        ["bold", "italic"],
-        ["ul", "ol"],
-      ],
+      // toolbarItems: [
+      //   ["bold", "italic"],
+      //   ["ul", "ol"],
+      // ],
       events: {
         change: () => {
-          emit("update:content", editor.getMarkdown());
+          emit("update:modelValue", { field: editor.value.getMarkdown() });
         },
       },
     });
-    viewer = new Viewer({
-      el: document.querySelector(`.${viewerEl.value}`)
-        ? document.querySelector(`.${viewerEl.value}`)
-        : document.querySelector(`.typeArea__translate`),
-      initialValue: unTranslateContent.value,
-      height: "350px",
-    });
+    // viewer.value = new Viewer({
+    //   el: document.querySelector(`.${viewerEl.value}`)
+    //     ? document.querySelector(`.${viewerEl.value}`)
+    //     : document.querySelector(`.typeArea__translate`),
+    //   initialValue: unTranslateContent.value,
+    //   height: "350px",
+    // });
   });
 });
 
 const resyncFromGlobal = () => {
-  emit("update:content", unTranslateContent.value);
+  emit("update:modelValue", unTranslateContent.value);
   nextTick(() => {
     editor.destroy();
-    editor = new Editor({
+    editor.value = new Editor({
       el: document.querySelector(`.${el.value}`),
       height: "350px",
       initialEditType: "wysiwyg",
       previewStyle: "vertical",
-      initialValue: featureContext.value,
+      initialValue: modelValue.value,
       useCommandShortcut: true,
       usageStatistics: false,
       hideModeSwitch: true,
       autofocus: false,
-      toolbarItems: [
-        ["bold", "italic"],
-        ["ul", "ol"],
-      ],
+      // toolbarItems: [
+      //   ["bold", "italic"],
+      //   ["ul", "ol"],
+      // ],
       events: {
         change: () => {
-          emit("update:content", editor.getMarkdown());
+          emit("update:modelValue", { field: editor.value.getMarkdown() });
         },
       },
     });
@@ -103,8 +102,8 @@ const resyncFromGlobal = () => {
 };
 
 onBeforeUnmount(() => {
-  editor.destroy();
-  viewer.destroy();
+  editor.value.destroy();
+  // viewer.value.destroy();
 });
 </script>
 <template>
@@ -123,9 +122,9 @@ onBeforeUnmount(() => {
         :icon="['fas', 'chevron-left']"
         @button-click="resyncFromGlobal"
       ></BaseButton> -->
-      <div v-show="showTranslate" class="typeArea__translate">
+      <!-- <div v-show="showTranslate" class="typeArea__translate">
         <div class="markDownEditor__content viewer" :class="viewerEl"></div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>

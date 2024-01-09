@@ -1,33 +1,24 @@
 <script setup>
 const Nav = resolveComponent("Nav");
 const BaseInput = resolveComponent("BaseInput");
-const BaseTitle = resolveComponent("BaseTitle");
+// const BaseTitle = resolveComponent("BaseTitle");
+// const BaseMarkDownEditor = resolveComponent("BaseMarkDownEditor");
 
 const epsGlobalStore = useEPSGlobalStore();
 
-const formView = markRaw({ Nav, BaseInput, BaseTitle });
+const formView = markRaw({ Nav, BaseInput });
 
 const routerName = ref("");
 
 const dymanicComponent = ref("BaseInput");
 
-const formTypeItems = ref([{ label: "BaseTitle", value: "BaseTitle" }]);
+const formTypeItems = ref([
+  { label: "BaseTitle", value: "BaseTitle" },
+  { label: "BaseMarkDownEditor", value: "BaseMarkDownEditor" },
+]);
 
 const formTypeCheckList = ref([]);
 
-const metaTest = `
-query getMeta {
-    MyQuery {
-      evseNews(id: 10) {
-        id
-        title
-      }
-      evseNewsList(page: 10, pageSize: 10) {
-        id
-        title
-      }
-    }
-  }`;
 // const { data } = await useFetch("https://msvc.msi.com/graphq", {
 //   headers: {
 //     Accept: "application/json",
@@ -74,7 +65,7 @@ useAsyncData(() => {
       @update:model-value="formTypeCheckList = $event"
     ></BaseCheckBox>
     <client-only>
-      <BaseMarkDownEditor el="test"></BaseMarkDownEditor>
+      <!-- <BaseMarkDownEditor el="test"></BaseMarkDownEditor> -->
       <FormGenerator
         :form-field="epsGlobalStore.getEpsForm"
         @update:model-value="

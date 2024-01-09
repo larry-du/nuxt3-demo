@@ -28,6 +28,11 @@ export const useEPSGlobalStore = defineStore("useEPSGlobalStore", {
         type: "BaseTitle",
         field: "te",
       },
+      {
+        id: 3,
+        type: "BaseMarkDownEditor",
+        field: "taaae",
+      },
     ],
   }),
   actions: {

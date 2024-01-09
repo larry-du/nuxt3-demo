@@ -52,18 +52,11 @@ query getMeta {
 //   },
 // );
 
-useAsyncData(async () => {
+useAsyncData(() => {
   try {
     console.log("useAsyncData");
-    const { data } = await $fetch("https://msvc.msi.com/graphq", {
-      headers: {
-        Accept: "application/json",
-        Authorization: "da2-3d2ezly5xngofpbmuz6wqvjzf4",
-      },
-      method: "POST",
-      body: metaTest,
-    });
-    console.log("end", data);
+    // await epsGlobalStore.fetchMeta();
+    console.log("end");
   } catch (e) {
     console.log("error", e);
   }
@@ -81,6 +74,7 @@ useAsyncData(async () => {
       @update:model-value="formTypeCheckList = $event"
     ></BaseCheckBox>
     <client-only>
+      <BaseMarkDownEditor el="test"></BaseMarkDownEditor>
       <FormGenerator
         :form-field="epsGlobalStore.getEpsForm"
         @update:model-value="

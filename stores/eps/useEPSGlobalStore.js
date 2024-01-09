@@ -32,14 +32,17 @@ export const useEPSGlobalStore = defineStore("useEPSGlobalStore", {
   }),
   actions: {
     async fetchMeta() {
-      console.log("hi");
-
-      const { data } = await $fetch("https://msvc.msi.com/graphq", {
+      const { data } = await $fetch("https://msvc.msi.com/graphql", {
+        headers: {
+          Accept: "application/json",
+          Authorization: "da2-3d2ezly5xngofpbmuz6wqvjzf4",
+        },
         method: "POST",
-        body: metaTest,
+        body: {
+          query: metaTest,
+        },
       });
-      console.log("hi", data);
-      return data;
+      console.log(data);
     },
   },
   getters: {

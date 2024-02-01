@@ -1,8 +1,7 @@
 // import { defineStore } from "pinia";
 
 const metaTest = `
-query getMeta {
-    MyQuery {
+  query getMeta {
       evseNews(id: 10) {
         id
         title
@@ -12,7 +11,7 @@ query getMeta {
         title
       }
     }
-  }`;
+  `;
 
 export const useEPSGlobalStore = defineStore("useEPSGlobalStore", {
   state: () => ({
@@ -34,19 +33,23 @@ export const useEPSGlobalStore = defineStore("useEPSGlobalStore", {
         field: "taaae",
       },
     ],
+    epsPageTitle: "",
+    epsMetaList: [],
   }),
   actions: {
     async fetchMeta() {
       const { data } = await $fetch("https://msvc.msi.com/graphql", {
         headers: {
           Accept: "application/json",
-          Authorization: "da2-3d2ezly5xngofpbmuz6wqvjzf4",
+          "x-api-key": "da2-3d2ezly5xngofpbmuz6wqvjzf4",
         },
         method: "POST",
         body: {
           query: metaTest,
         },
       });
+      this.epsPageTitle = data.evseNews.title;
+      this.epsMetaList = data.evseNewsList;
       console.log(data);
     },
   },
@@ -56,6 +59,18 @@ export const useEPSGlobalStore = defineStore("useEPSGlobalStore", {
     },
     getEpsForm() {
       return this.epsForm;
+    },
+    getEpsPageTitle() {
+      return this.epsPageTitle;
+    },
+    getEpsMetaList() {
+      return this.epsMetaList.map((item) => {
+        return {
+          ...item,
+          name: "description",
+          content: item.title,
+        };
+      });
     },
   },
 });

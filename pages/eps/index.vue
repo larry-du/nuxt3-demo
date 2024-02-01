@@ -18,35 +18,19 @@ const formTypeItems = ref([
 ]);
 
 const formTypeCheckList = ref([]);
+// const title = ref("");
 
-// const { data } = await useFetch("https://msvc.msi.com/graphq", {
-//   headers: {
-//     Accept: "application/json",
-//     Authorization: "da2-3d2ezly5xngofpbmuz6wqvjzf4",
-//   },
-//   method: "POST",
-//   body: metaTest,
-// });
-// const { data } = await useFetch(
-//   "https://dev-api.mangi.tw:443/api/v1.0/comics/users/signup/native",
-//   {
-//     // headers: {
-//     //   Accept: "application/json",
-//     //   Authorization: "da2-3d2ezly5xngofpbmuz6wqvjzf4",
-//     // },
-//     method: "POST",
-//     body: {
-//       email: "wendy_test",
-//       password: "wendy_test",
-//       username: "wendy_test",
-//     },
-//   },
-// );
+useHead({
+  title: () => epsGlobalStore.getEpsPageTitle,
+  viewport: "width=device-width, initial-scale=1, maximum-scale=1",
+  charset: "utf-8",
+  meta: () => epsGlobalStore.getEpsMetaList,
+});
 
-useAsyncData(() => {
+useAsyncData(async () => {
   try {
     console.log("useAsyncData");
-    // await epsGlobalStore.fetchMeta();
+    await epsGlobalStore.fetchMeta();
     console.log("end");
   } catch (e) {
     console.log("error", e);
@@ -108,6 +92,15 @@ useAsyncData(() => {
         <div class="show-data">{{ epsGlobalStore.getEpsForm }}</div>
       </div> -->
     </client-only>
+    <div class="test">
+      <div
+        v-for="list in epsGlobalStore.getEpsMetaList"
+        :key="list.id"
+        class="aaaaaaaaaaaaaaaaaaa"
+      >
+        {{ list.content }}
+      </div>
+    </div>
 
     <!-- <div>
       <NuxtLink to="/home">Router Nest Home</NuxtLink>-

@@ -18,7 +18,7 @@ const BaseMarkDownEditor = resolveComponent("BaseMarkDownEditor");
 const formView = markRaw({ BaseTitle, BaseMarkDownEditor });
 </script>
 <template>
-  <div class="test">
+  <div class="formGenerator">
     <ElForm
       v-draggable="{
         animation: 400,
@@ -37,7 +37,10 @@ const formView = markRaw({ BaseTitle, BaseMarkDownEditor });
             :model-value="formType.field"
             @update:model-value="
               $emit('update:modelValue', {
-                current: { ...formType, ...$event },
+                current: {
+                  ...formType,
+                  ...$event,
+                },
                 currentIndex: index,
               })
             "

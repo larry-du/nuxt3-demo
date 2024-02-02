@@ -48,20 +48,21 @@ useAsyncData(async () => {
       :model-value="formTypeCheckList"
       @update:model-value="formTypeCheckList = $event"
     ></BaseCheckBox>
-    <client-only>
-      <!-- <BaseMarkDownEditor el="test"></BaseMarkDownEditor> -->
-      <FormGenerator
-        :form-field="epsGlobalStore.getEpsForm"
-        @update:model-value="
-          epsGlobalStore.epsForm = [
-            ...epsGlobalStore.epsForm.slice(0, $event.currentIndex),
-            { ...$event.current },
-            ...epsGlobalStore.epsForm.slice($event.currentIndex + 1),
-          ]
-        "
-        @update:form-field="epsGlobalStore.epsForm = $event"
-      ></FormGenerator>
-      <!-- <div class="test">
+    <!-- <client-only> -->
+    <!-- <BaseMarkDownEditor el="test"></BaseMarkDownEditor> -->
+    <FormGenerator
+      class="test"
+      :form-field="epsGlobalStore.getEpsForm"
+      @update:model-value="
+        epsGlobalStore.epsForm = [
+          ...epsGlobalStore.epsForm.slice(0, $event.currentIndex),
+          { ...$event.current },
+          ...epsGlobalStore.epsForm.slice($event.currentIndex + 1),
+        ]
+      "
+      @update:form-field="epsGlobalStore.epsForm = $event"
+    ></FormGenerator>
+    <!-- <div class="test">
         <ElForm
           v-draggable="{
             animation: 400,
@@ -91,8 +92,8 @@ useAsyncData(async () => {
         </ElForm>
         <div class="show-data">{{ epsGlobalStore.getEpsForm }}</div>
       </div> -->
-    </client-only>
-    <div class="test">
+    <!-- </client-only> -->
+    <div class="test2">
       <div
         v-for="list in epsGlobalStore.getEpsMetaList"
         :key="list.id"
@@ -102,7 +103,7 @@ useAsyncData(async () => {
       </div>
     </div>
 
-    <!-- <div>
+    <div>
       <NuxtLink to="/home">Router Nest Home</NuxtLink>-
       <NuxtLink to="/about">Router Nest About</NuxtLink>
     </div>
@@ -135,7 +136,7 @@ useAsyncData(async () => {
       <button @click="dymanicComponent = 'BaseInput'">BaseInput</button>
       <component :is="formView[dymanicComponent]" />
       <NuxtPage :key="$route.path" />
-    </div> -->
+    </div>
   </NuxtLayout>
 </template>
 

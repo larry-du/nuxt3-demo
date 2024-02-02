@@ -34,10 +34,11 @@ export const useEPSGlobalStore = defineStore("useEPSGlobalStore", {
       },
     ],
     epsPageTitle: "",
-    epsMetaList: [],
+    epsMetaList: [{ name: "description", content: "test" }],
   }),
   actions: {
     async fetchMeta() {
+      // setTimeout(async () => {
       const { data } = await $fetch("https://msvc.msi.com/graphql", {
         headers: {
           Accept: "application/json",
@@ -50,7 +51,8 @@ export const useEPSGlobalStore = defineStore("useEPSGlobalStore", {
       });
       this.epsPageTitle = data.evseNews.title;
       this.epsMetaList = data.evseNewsList;
-      console.log(data);
+      // console.log(data);
+      // }, 10000);
     },
   },
   getters: {

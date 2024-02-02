@@ -34,6 +34,7 @@ const formView = markRaw({ BaseTitle, BaseMarkDownEditor });
         <div v-for="(formType, index) in formField" :key="formType.id">
           <Component
             :is="formView[formType.type]"
+            :el="`${formType.type}-${formType.id}`"
             :model-value="formType.field"
             @update:model-value="
               $emit('update:modelValue', {
@@ -48,8 +49,19 @@ const formView = markRaw({ BaseTitle, BaseMarkDownEditor });
         </div>
       </div>
     </ElForm>
-    <div class="show-data">{{ formField }}</div>
+    <div class="show-data">
+      <div v-for="field in formField" :key="field.id" class="componentData">
+        {{ field }}
+      </div>
+    </div>
   </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.componentData {
+  margin-top: 20px;
+  &:first-child {
+    margin-top: 0;
+  }
+}
+</style>

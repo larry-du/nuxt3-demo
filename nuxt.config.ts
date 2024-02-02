@@ -19,4 +19,7 @@ export default defineNuxtConfig({
   pinia: {
     storesDirs: ["./stores/**"],
   },
+  nitro: {
+    compressPublicAssets: true,
+  },
 });

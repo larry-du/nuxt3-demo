@@ -1,4 +1,5 @@
 <script setup>
+import { v4 as uuidv4 } from "uuid";
 const Nav = resolveComponent("Nav");
 const BaseInput = resolveComponent("BaseInput");
 // const BaseTitle = resolveComponent("BaseTitle");
@@ -21,10 +22,19 @@ const formTypeCheckList = ref([]);
 // const title = ref("");
 
 useHead({
-  title: () => epsGlobalStore.getEpsPageTitle,
+  // title: () => epsGlobalStore.getEpsPageTitle,
   viewport: "width=device-width, initial-scale=1, maximum-scale=1",
   charset: "utf-8",
   meta: () => epsGlobalStore.getEpsMetaList,
+});
+
+useSeoMeta({
+  title: () => epsGlobalStore.getEpsPageTitle,
+  ogTitle: "My Amazing Site",
+  description: "This is my amazing site, let me tell you all about it.",
+  ogDescription: "This is my amazing site, let me tell you all about it.",
+  ogImage: "https://example.com/image.png",
+  twitterCard: "summary_large_image",
 });
 
 useAsyncData(async () => {
@@ -37,7 +47,17 @@ useAsyncData(async () => {
   }
 });
 
-// console.log(data);
+const updateFormComponent = () => {
+  const result = formTypeCheckList.value.map((item) => {
+    return { id: uuidv4(), type: item, field: "" };
+  });
+  epsGlobalStore.epsForm = [...epsGlobalStore.epsForm, ...result];
+  formTypeCheckList.value = [];
+};
+
+const clearAllFormComponent = () => {
+  epsGlobalStore.epsForm = [];
+};
 </script>
 
 <template>
@@ -48,8 +68,9 @@ useAsyncData(async () => {
       :model-value="formTypeCheckList"
       @update:model-value="formTypeCheckList = $event"
     ></BaseCheckBox>
+    <button @click="updateFormComponent">update form component</button>
+    <button @click="clearAllFormComponent">clear</button>
     <!-- <client-only> -->
-    <!-- <BaseMarkDownEditor el="test"></BaseMarkDownEditor> -->
     <FormGenerator
       class="test"
       :form-field="epsGlobalStore.getEpsForm"
@@ -62,46 +83,7 @@ useAsyncData(async () => {
       "
       @update:form-field="epsGlobalStore.epsForm = $event"
     ></FormGenerator>
-    <!-- <div class="test">
-        <ElForm
-          v-draggable="{
-            animation: 400,
-            saveData: (data) => {
-              test(data);
-            },
-            sortData: 'productFocus',
-            dragElement: '.focusDrag__content',
-            disableElement: '',
-          }"
-        >
-          <div class="focusDrag__content">
-            <Component
-              :is="formView[formType.type]"
-              v-for="(formType, index) in epsGlobalStore.getEpsForm"
-              :key="formType.id"
-              :model-value="formType.field"
-              @update:model-value="
-                epsGlobalStore.epsForm = [
-                  ...epsGlobalStore.getEpsForm.slice(0, index),
-                  { ...formType, ...$event },
-                  ...epsGlobalStore.getEpsForm.slice(index + 1),
-                ]
-              "
-            ></Component>
-          </div>
-        </ElForm>
-        <div class="show-data">{{ epsGlobalStore.getEpsForm }}</div>
-      </div> -->
     <!-- </client-only> -->
-    <div class="test2">
-      <div
-        v-for="list in epsGlobalStore.getEpsMetaList"
-        :key="list.id"
-        class="aaaaaaaaaaaaaaaaaaa"
-      >
-        {{ list.content }}
-      </div>
-    </div>
 
     <div>
       <NuxtLink to="/home">Router Nest Home</NuxtLink>-

@@ -2,6 +2,16 @@ import checker from "vite-plugin-checker";
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: false },
+  app: {
+    pageTransition: {
+      name: "page",
+      mode: "out-in", // default
+    },
+    layoutTransition: {
+      name: "rotate",
+      mode: "out-in", // default
+    },
+  },
   vite: {
     plugins: [
       checker({

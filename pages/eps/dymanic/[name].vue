@@ -1,7 +1,9 @@
 <template>
-  EPS dymanic test
-  <div>{{ $route.params.name }}</div>
-  <NuxtLink to="/">back</NuxtLink>
+  <div>
+    EPS dymanic test
+    <div>{{ $route.params.name }}</div>
+    <NuxtLink to="/">back</NuxtLink>
+  </div>
 </template>
 
 <script setup></script>

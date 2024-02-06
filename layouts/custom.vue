@@ -1,7 +1,9 @@
 <template>
-  custom
   <div>
-    <slot />
+    custom
+    <div>
+      <slot />
+    </div>
   </div>
 </template>
 

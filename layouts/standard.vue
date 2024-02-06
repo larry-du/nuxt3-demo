@@ -1,7 +1,9 @@
 <template>
-  standard
-  <div class="standard">
-    <slot />
+  <div>
+    standard
+    <div class="standard">
+      <slot />
+    </div>
   </div>
 </template>
 

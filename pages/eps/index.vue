@@ -9,7 +9,7 @@ const epsGlobalStore = useEPSGlobalStore();
 
 const formView = markRaw({ Nav, BaseInput });
 
-const routerName = ref("");
+const routerName = ref("test");
 
 const dymanicComponent = ref("BaseInput");
 
@@ -39,9 +39,9 @@ useSeoMeta({
 
 useAsyncData(async () => {
   try {
-    console.log("useAsyncData");
+    // console.log("useAsyncData");
     await epsGlobalStore.fetchMeta();
-    console.log("end");
+    // console.log("end");
   } catch (e) {
     console.log("error", e);
   }
@@ -61,69 +61,79 @@ const clearAllFormComponent = () => {
 </script>
 
 <template>
-  <NuxtLayout name="standard">
-    <pre>{{ formTypeCheckList }}</pre>
-    <BaseCheckBox
-      :check-options="formTypeItems"
-      :model-value="formTypeCheckList"
-      @update:model-value="formTypeCheckList = $event"
-    ></BaseCheckBox>
-    <button @click="updateFormComponent">update form component</button>
-    <button @click="clearAllFormComponent">clear</button>
-    <!-- <client-only> -->
-    <FormGenerator
-      class="test"
-      :form-field="epsGlobalStore.getEpsForm"
-      @update:model-value="
-        epsGlobalStore.epsForm = [
-          ...epsGlobalStore.epsForm.slice(0, $event.currentIndex),
-          { ...$event.current },
-          ...epsGlobalStore.epsForm.slice($event.currentIndex + 1),
-        ]
-      "
-      @update:form-field="epsGlobalStore.epsForm = $event"
-    ></FormGenerator>
-    <!-- </client-only> -->
+  <div>
+    <NuxtLayout name="standard">
+      <pre>{{ formTypeCheckList }}</pre>
+      <BaseCheckBox
+        :check-options="formTypeItems"
+        :model-value="formTypeCheckList"
+        @update:model-value="formTypeCheckList = $event"
+      ></BaseCheckBox>
+      <button @click="updateFormComponent">update form component</button>
+      <button @click="clearAllFormComponent">clear</button>
+      <FormGenerator
+        class="test"
+        :form-field="epsGlobalStore.getEpsForm"
+        @update:model-value="
+          epsGlobalStore.epsForm = [
+            ...epsGlobalStore.epsForm.slice(0, $event.currentIndex),
+            { ...$event.current },
+            ...epsGlobalStore.epsForm.slice($event.currentIndex + 1),
+          ]
+        "
+        @update:form-field="epsGlobalStore.epsForm = $event"
+      ></FormGenerator>
 
-    <div>
-      <NuxtLink to="/home">Router Nest Home</NuxtLink>-
-      <NuxtLink to="/about">Router Nest About</NuxtLink>
-    </div>
-    <div>
-      <NuxtLink to="/test">Folder Nest index</NuxtLink>
-    </div>
-    <div>
-      <NuxtLink :to="`/dymanic/${routerName}`">dymanic</NuxtLink>
-    </div>
-    <div>{{ $route.path }}</div>
-    <div>
-      EPS index
       <div>
-        <input
-          type="text"
-          :value="routerName"
-          @input="routerName = $event.target.value"
-        />
+        <NuxtLink to="/home">Router Nest Home</NuxtLink>-
+        <NuxtLink to="/about">Router Nest About</NuxtLink>
       </div>
       <div>
-        <p>Pinia test- {{ epsGlobalStore.getEPSTest }}</p>
-        <input
-          type="text"
-          :value="epsGlobalStore.getEPSTest"
-          @input="epsGlobalStore.epsTest = $event.target.value"
-        />
+        <NuxtLink to="/test">Folder Nest index</NuxtLink>
       </div>
-      <div>Dymanic Router Name-{{ routerName }}</div>
-      <button @click="dymanicComponent = 'Nav'">Nav</button>
-      <button @click="dymanicComponent = 'BaseInput'">BaseInput</button>
-      <component :is="formView[dymanicComponent]" />
-      <NuxtPage :key="$route.path" />
-    </div>
-  </NuxtLayout>
+      <div>
+        <NuxtLink :to="`/dymanic/${routerName}`">dymanic</NuxtLink>
+      </div>
+      <div>{{ $route.path }}</div>
+      <div>
+        EPS index
+        <div>
+          <input
+            type="text"
+            :value="routerName"
+            @input="routerName = $event.target.value"
+          />
+        </div>
+        <div>
+          <p>Pinia test- {{ epsGlobalStore.getEPSTest }}</p>
+          <input
+            type="text"
+            :value="epsGlobalStore.getEPSTest"
+            @input="epsGlobalStore.epsTest = $event.target.value"
+          />
+        </div>
+        <div>Dymanic Router Name-{{ routerName }}</div>
+        <button @click="dymanicComponent = 'Nav'">Nav</button>
+        <button @click="dymanicComponent = 'BaseInput'">BaseInput</button>
+        <component :is="formView[dymanicComponent]" />
+        <NuxtPage :key="$route.path" />
+      </div>
+    </NuxtLayout>
+  </div>
 </template>
 
 <style lang="scss" scoped>
 .test {
   display: flex;
+}
+
+.page-enter-active,
+.page-leave-active {
+  transition: all 0.4s;
+}
+.page-enter-from,
+.page-leave-to {
+  opacity: 0;
+  filter: blur(1rem);
 }
 </style>

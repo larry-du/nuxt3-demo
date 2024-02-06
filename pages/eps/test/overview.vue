@@ -1,6 +1,8 @@
 <template>
-  <div>overview</div>
-  <NuxtLink to="/test">back</NuxtLink>
+  <div>
+    <div>overview</div>
+    <NuxtLink to="/test">back</NuxtLink>
+  </div>
 </template>
 
 <script setup></script>

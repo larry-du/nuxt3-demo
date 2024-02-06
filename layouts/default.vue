@@ -1,7 +1,9 @@
 <template>
-  <h1>default</h1>
-  <div class="default">
-    <slot />
+  <div>
+    <h1>default</h1>
+    <div class="default">
+      <slot />
+    </div>
   </div>
 </template>
 

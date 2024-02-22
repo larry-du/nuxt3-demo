@@ -1,17 +1,6 @@
 // import { defineStore } from "pinia";
-
-const metaTest = `
-  query getMeta {
-      evseNews(id: 10) {
-        id
-        title
-      }
-      evseNewsList(page: 10, pageSize: 10) {
-        id
-        title
-      }
-    }
-  `;
+import { graphQlPost } from "@/api/graphql";
+import { GetEpsMeta } from "@/graphql/useQuery/eps";
 
 export const useEPSGlobalStore = defineStore("useEPSGlobalStore", {
   state: () => ({
@@ -38,21 +27,21 @@ export const useEPSGlobalStore = defineStore("useEPSGlobalStore", {
   }),
   actions: {
     async fetchMeta() {
-      // setTimeout(async () => {
-      const { data } = await $fetch("https://msvc.msi.com/graphql", {
-        headers: {
-          Accept: "application/json",
-          "x-api-key": "da2-3d2ezly5xngofpbmuz6wqvjzf4",
-        },
-        method: "POST",
-        body: {
-          query: metaTest,
-        },
+      const { data } = await graphQlPost("https://msvc.msi.com/graphql", {
+        query: GetEpsMeta,
       });
+      // const { data } = await $fetch("https://msvc.msi.com/graphql", {
+      //   headers: {
+      //     Accept: "application/json",
+      //     "x-api-key": "da2-3d2ezly5xngofpbmuz6wqvjzf4",
+      //   },
+      //   method: "POST",
+      //   body: {
+      //     query: metaTest,
+      //   },
+      // });
       this.epsPageTitle = data.evseNews.title;
       this.epsMetaList = data.evseNewsList;
-      // console.log(data);
-      // }, 10000);
     },
   },
   getters: {

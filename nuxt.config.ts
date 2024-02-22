@@ -11,7 +11,9 @@ export default defineNuxtConfig({
       name: "rotate",
       mode: "out-in", // default
     },
+    rootId: "abccccc",
   },
+  css: ["@/assets/sass/_cssReset.sass"],
   vite: {
     plugins: [
       checker({
@@ -24,7 +26,6 @@ export default defineNuxtConfig({
   dir: {
     pages: `pages/${process.env.WEBSITE_ID}`,
   },
-  plugins: ["~/plugins/draggable.js"],
   modules: ["@pinia/nuxt", "@element-plus/nuxt"],
   pinia: {
     storesDirs: ["./stores/**"],

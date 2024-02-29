@@ -21,15 +21,15 @@ const formTypeItems = ref([
 const formTypeCheckList = ref([]);
 // const title = ref("");
 
-// useHead({
-//   // title: () => epsGlobalStore.getEpsPageTitle,
-//   viewport: "width=device-width, initial-scale=1, maximum-scale=1",
-//   charset: "utf-8",
-//   meta: () => epsGlobalStore.getEpsMetaList,
-// });
+useHead({
+  // title: () => epsGlobalStore.getEpsPageTitle,
+  viewport: "width=device-width, initial-scale=1, maximum-scale=1",
+  charset: "utf-8",
+  meta: () => epsGlobalStore.getEpsMetaList,
+});
 
 useSeoMeta({
-  title: () => epsGlobalStore.getEpsPageTitle,
+  // title: () => epsGlobalStore.getEpsPageTitle,
   ogTitle: "My Amazing Site",
   description: "This is my amazing site, let me tell you all about it.",
   ogDescription: "This is my amazing site, let me tell you all about it.",

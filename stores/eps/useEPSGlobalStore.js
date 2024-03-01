@@ -24,6 +24,7 @@ export const useEPSGlobalStore = defineStore("useEPSGlobalStore", {
     ],
     epsPageTitle: "",
     epsMetaList: [{ name: "description", content: "test" }],
+    epsAllowCountry: ["us", "tw", "jp"],
   }),
   actions: {
     async fetchMeta() {
@@ -42,6 +43,8 @@ export const useEPSGlobalStore = defineStore("useEPSGlobalStore", {
       // });
       this.epsPageTitle = data.evseNews.title;
       this.epsMetaList = data.evseNewsList;
+
+      // console.log(this.epsMetaList);
     },
   },
   getters: {
@@ -53,6 +56,9 @@ export const useEPSGlobalStore = defineStore("useEPSGlobalStore", {
     },
     getEpsPageTitle() {
       return this.epsPageTitle;
+    },
+    getEpsAllowCountry() {
+      return this.epsAllowCountry;
     },
     getEpsMetaList() {
       return this.epsMetaList.map((item) => {

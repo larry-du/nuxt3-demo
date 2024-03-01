@@ -13,6 +13,9 @@ const routerName = ref("test");
 
 const dymanicComponent = ref("BaseInput");
 
+const router = useRouter();
+const route = useRoute();
+
 const formTypeItems = ref([
   { label: "BaseTitle", value: "BaseTitle" },
   { label: "BaseMarkDownEditor", value: "BaseMarkDownEditor" },
@@ -21,20 +24,21 @@ const formTypeItems = ref([
 const formTypeCheckList = ref([]);
 // const title = ref("");
 
-useHead({
-  // title: () => epsGlobalStore.getEpsPageTitle,
-  viewport: "width=device-width, initial-scale=1, maximum-scale=1",
-  charset: "utf-8",
-  meta: () => epsGlobalStore.getEpsMetaList,
-});
+// useHead({
+//   title: () => epsGlobalStore.getEpsPageTitle,
+//   viewport: "width=device-width, initial-scale=1, maximum-scale=1",
+//   charset: "utf-8",
+//   meta: () => epsGlobalStore.getEpsMetaList,
+// });
 
 useSeoMeta({
-  // title: () => epsGlobalStore.getEpsPageTitle,
+  title: () => epsGlobalStore.getEpsPageTitle,
   ogTitle: "My Amazing Site",
   description: "This is my amazing site, let me tell you all about it.",
   ogDescription: "This is my amazing site, let me tell you all about it.",
   ogImage: "https://example.com/image.png",
   twitterCard: "summary_large_image",
+  meta: () => epsGlobalStore.getEpsMetaList,
 });
 
 useAsyncData(async () => {
@@ -42,6 +46,7 @@ useAsyncData(async () => {
     // console.log("useAsyncData");
     await epsGlobalStore.fetchMeta();
     // console.log("end");
+    // console.log("route", epsGlobalStore.getEpsMetaList);
   } catch (e) {
     console.log("error", e);
   }
@@ -57,6 +62,19 @@ const updateFormComponent = () => {
 
 const clearAllFormComponent = () => {
   epsGlobalStore.epsForm = [];
+};
+
+const country = ref("global");
+
+const changeCountry = async () => {
+  country.value = "us";
+  // console.log("country", router);
+  // console.log(route);
+  // router.push({ name: "country-test", params: { country: country.value } });
+  await navigateTo({
+    name: "country-test",
+    params: { country: country.value },
+  });
 };
 </script>
 
@@ -94,6 +112,10 @@ const clearAllFormComponent = () => {
       <div>
         <NuxtLink :to="`/dymanic/${routerName}`">dymanic</NuxtLink>
       </div>
+      <div>
+        <NuxtLink :to="`/${country}/test`">country</NuxtLink>
+      </div>
+      <button @click="changeCountry">country button test</button>
       <div>{{ $route.path }}</div>
       <div>
         EPS index

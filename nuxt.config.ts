@@ -1,5 +1,6 @@
 import checker from "vite-plugin-checker";
-// https://nuxt.com/docs/api/configuration/nuxt-config
+import { webSiteFont } from "./utils";
+
 export default defineNuxtConfig({
   devtools: { enabled: false },
   app: {
@@ -13,7 +14,7 @@ export default defineNuxtConfig({
     },
     rootId: "abccccc",
   },
-  css: ["@/assets/sass/_cssReset.sass"],
+  css: ["@/assets/sass/_cssReset.sass", webSiteFont(process.env.WEBSITE_ID)],
   vite: {
     plugins: [
       checker({
@@ -25,6 +26,7 @@ export default defineNuxtConfig({
   },
   dir: {
     pages: `pages/${process.env.WEBSITE_ID}`,
+    middleware: `middleware/${process.env.WEBSITE_ID}`,
   },
   modules: ["@pinia/nuxt", "@element-plus/nuxt"],
   pinia: {

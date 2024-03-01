@@ -1,6 +1,4 @@
 import Sortable from "sortablejs";
-import { defineNuxtPlugin } from "#app";
-import { deepClone } from "@/utils/";
 
 export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.vueApp.directive("draggable", {

@@ -1,5 +1,6 @@
 <script setup>
 import { v4 as uuidv4 } from "uuid";
+import { updateArrayData } from "@/utils";
 const Nav = resolveComponent("Nav");
 const BaseInput = resolveComponent("BaseInput");
 // const BaseTitle = resolveComponent("BaseTitle");
@@ -93,11 +94,11 @@ const changeCountry = async () => {
         class="test"
         :form-field="epsGlobalStore.getEpsForm"
         @update:model-value="
-          epsGlobalStore.epsForm = [
-            ...epsGlobalStore.epsForm.slice(0, $event.currentIndex),
-            { ...$event.current },
-            ...epsGlobalStore.epsForm.slice($event.currentIndex + 1),
-          ]
+          epsGlobalStore.epsForm = updateArrayData(
+            epsGlobalStore.epsForm,
+            $event.current,
+            $event.currentIndex,
+          )
         "
         @update:form-field="epsGlobalStore.epsForm = $event"
       ></FormGenerator>
